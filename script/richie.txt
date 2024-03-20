@@ -1,0 +1,60 @@
+
+  295  mkdir richard_hembrom
+  296  ls
+  297  mv richard_hembrom biocomputing
+  298  ls
+  299  cd biocomputing/
+  300  wget https://raw.githubusercontent.com/josoga2/dataset-repos/main/wildtype.fna https://raw.githubusercontent.com/josoga2/dataset-repos/main/wildtype.gbk https://raw.githubusercontent.com/josoga2/dataset-repos/main/wildtype.gbk  
+  301  ls
+  302   
+  303  ls
+  304  cd biocomputing/
+  305  ls
+  306  rm -r richard_hembrom 
+  307  ls
+  308  cd ..
+  309  makdir richard_hembrom
+  310  ls
+  311  d biocomputing/
+  312  ls
+  313  cd biocomputing/
+  314  ls
+  315  cd ..
+  316  ls
+  317  mkdir richard_hembrom
+  318  ls
+  319  d biocomputing/
+  320  ls
+  321  clear
+  322  ls
+  323  cd biocomputing/
+  324  ls
+  325  mv wildtype.fna ../richard_hembrom
+  326  ls
+  327  rm -r wildtype.gbk.1 
+  328  ls
+  329  cd ..
+  330  ls
+  331  cd richard_hembrom/
+  332  ls
+  333  cat wildtype.fna 
+  334  grep 'tatatata' wildtype.fna 
+  335  grep 'tatatata' wildtype.fna> mutanttype.fna
+  336  ls
+  337  wget https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=7157#
+  345  cat tp53.fna 
+  346  gedit tp53.fna 
+  354  wc -l tp53.fna 
+  355  cat tp53.fna 
+  360  grep -v "[a-z]" tp53.fna | wc -l 
+  364  grep -o 'A' tp53.fna | wc -l
+  365  grep -o 'G' tp53.fna | wc -l
+  366  grep -o 'C' tp53.fna | wc -l
+  367  grep -o 'T' tp53.fna | wc -l
+  384  awk '/^>/ {if (seq != "") {print "GC content:", (gc_count / length(seq)) * 100 "%"}; printf $0 "\t"; seq=""; gc_count=0; next} {seq = seq $0; gc_count += gsub(/[GCgc]/,"")} END {print "GC content:", (gc_count / length(seq)) * 100 "%"}' tp53.fna  
+  391  nano richard_hembrom.fasta 
+  392  echo "GATCGCAATGA" >>richard_hembrom.fasta
+  393  ls
+  395  clear
+  441  awk '!/^>/{n+=length($0); g+=gsub(/[GgCc]/,"") } END{print g/n * 100 "%"}' tp53.fna 
+  468  history >>output.txt
