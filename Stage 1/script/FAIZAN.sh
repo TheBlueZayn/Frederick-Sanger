@@ -18,4 +18,5 @@ $ nano FAIZAN.fasta
 $ C=$(grep -o "C" gadphgene.fasta | wc -l) && A=$(grep -o "A" gadphgene.fasta | wc -l) && G=$(grep -o "G" gadphgene.fasta | wc -l) && T=$(grep -o "T" gadphgene.fasta | wc -l) | echo "G count is:$G" >> FAIZAN.fasta && echo "A count is:$A" >> FAIZAN.fasta && echo "C count is:$C" >> FAIZAN.fasta && echo "T count is:$T" >> FAIZAN.fasta
 $ history 
 $ clear
-$ ls
+$ ls && cd ../biocomputing && ls
+
