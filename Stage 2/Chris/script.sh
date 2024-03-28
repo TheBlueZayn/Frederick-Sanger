@@ -73,5 +73,5 @@ bgzip variants.vcf
 tabix variants.vcf.gz
 
 # Convert the vcf file to a .csv file for further analysis and visualisation
-echo -e "CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER" > output.csv
+echo -e "CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER" > output.csv #Echos the header
 bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' variants.vcf.gz >> output.csv
