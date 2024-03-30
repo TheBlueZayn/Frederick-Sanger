@@ -44,7 +44,7 @@
   samtools index ERR8774458_aligned_markdup.bam
   
   #Variant calling using bcftools (earlier this was possible using samtools but now it has been removed)
-  bcftools mpileup -f Reference.fasta ERR8774458_aligned_markdup.bam >ERR8774458_variants.bcf
+  bcftools mpileup -Ou -a DP -m 4 -f Reference.fasta ERR8774458_aligned_markdup.bam >ERR8774458_variants.bcf
   
   # Converting from .bcf file to .vcf file
   bcftools call -mv -O v -o ERR8774458_variants.vcf ERR8774458_variants.bcf
