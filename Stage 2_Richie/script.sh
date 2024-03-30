@@ -51,4 +51,8 @@
   
   # To see the first 100 lines of the "ERR8774458_variants.vcf" file #
   head -n 100 ERR8774458_variants.vcf
+
+  # Converting VCF to CSV for visualization
+  awk 'BEGIN {FS="\t"; OFS=","} !/^##/ {if (/^#/) {print "CHROM","POS","ID","REF","ALT","QUAL","FILTER","INFO"} else {print $1,$2,$3,$4,$5,$6,$7,$8}}' ERR8774458_variants.vcf > ERR8774458_variants.csv
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------  
