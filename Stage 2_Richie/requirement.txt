@@ -1,8 +1,0 @@
-FastQC (software)
-Raw seuencing data (FASTQ format)
-Trimmomatic (trimming tools)
-BWA (Burrows-Wheeler Aligner-alignment software)
-Reference genome (FASTA format)
-Samtools (variant calling)
-bcftools/FreeBaes (variant calling)
-Alignment file (BAM format, obtained from mapping step above)
