@@ -10,23 +10,25 @@ mkdir -p data/fastq data/ref
 wget -P data/fastq https://zenodo.org/records/10426436/files/ERR8774458_1.fastq.gz https://zenodo.org/records/10426436/files/ERR8774458_2.fastq.gz
 wget -P data/ref https://zenodo.org/records/10886725/files/Reference.fasta
 
-# Perform quality check on reads
+# Perform quality control check on both reads, output to qc_folder folder
 mkdir qc_report
 fastqc data/fastq/*.fastq.gz -o qc_report
 
-# Aggregate fastqc reports
+# Aggregate fastqc reports 
 multiqc qc_report/*_fastqc.zip -o qc_report
 
-# Trim faulty reads with fastp
+# Trim faulty reads with fastp, output to trimmed folder
 mkdir trimmed 
 fastp --detect_adapter_for_pe --overrepresentation_analysis --correction --cut_right --html trimmed/ERR8774458.fastp.html --json --thread 2 -i data/fastq/ERR8774458_1.fastq.gz -I data/fastq/ERR8774458_2.fastq.gz -o trimmed/ERR8774458_1.fastq.gz -O trimmed/ERR8774458_2.fastq.gz
 
-# Map reads to reference genome
+# Map reads to reference genome by 
 mkdir -p results/sam results/bam results/bcf results/vcf
+# Index reference
 bwa index data/ref/Reference.fasta
+# Alight reads to reference genome
 bwa mem data/ref/Reference.fasta trimmed/ERR8774458_1.fastq.gz trimmed/ERR8774458_2.fastq.gz > results/sam/ERR8774458.aligned.sam
 
-
+# Convert sam file to bam file 
 samtools view -S -b results/sam/ERR8774458.aligned.sam > results/bam/ERR8774458.aligned.bam
 
 
