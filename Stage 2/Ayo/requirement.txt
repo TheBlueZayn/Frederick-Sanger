@@ -1,0 +1,20 @@
+#!/bin/bash
+
+
+1. FastQC                                 
+
+2. MultiQc                 
+
+3. FastP
+
+4. bwa
+
+5. samtools
+
+6. Freebayes 
+
+7. bcftools
+
+8. Tabix
+
+9. wget
