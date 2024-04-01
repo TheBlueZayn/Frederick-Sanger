@@ -64,7 +64,8 @@ bcftools view -v indels results/vcf/ERR8774458.variants.vcf.gz -Oz -o results/vc
 
 
 # Convert the vcf file to  csv file for further analysis and visualisation
-bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' variants.vcf > variant.csv
-# Convert snps and indel vcf files to csv files using bcftools
-bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' ~/Variant/snps.vcf  > snps.csv && bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n'
+bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' results/vcf/ERR8774458.variants.vcf.gz > variant.csv
+# Convert snps and indel vcf files to csv files 
+bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' results/vcf/snps.vcf.gz > snps.csv && bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' results/vcf/indels.vcf.gz > indels.csv
+
 
