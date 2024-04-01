@@ -21,11 +21,11 @@ multiqc qc_report/*_fastqc.zip -o qc_report
 mkdir trimmed 
 fastp --detect_adapter_for_pe --overrepresentation_analysis --correction --cut_right --html trimmed/ERR8774458.fastp.html --json --thread 2 -i data/fastq/ERR8774458_1.fastq.gz -I data/fastq/ERR8774458_2.fastq.gz -o trimmed/ERR8774458_1.fastq.gz -O trimmed/ERR8774458_2.fastq.gz
 
-# Map reads to reference genome by 
+# Map reads to reference genome with bwa
 mkdir -p results/sam results/bam results/bcf results/vcf
 # Index reference with bwa
 bwa index data/ref/Reference.fasta
-# Alight reads to reference genome
+# Align reads to reference genome
 bwa mem data/ref/Reference.fasta trimmed/ERR8774458_1.fastq.gz trimmed/ERR8774458_2.fastq.gz > results/sam/ERR8774458.aligned.sam
 
 # Convert sam file to bam file 
@@ -43,7 +43,7 @@ samtools flagstat results/bam/ERR8774458.aligned.sorted.bam
 # Generate pileup format for bam file
 bcftools mpileup -O b -o results/bcf/ERR8774458_raw.bcf -f data/ref/Reference.fasta results/bam/ERR8774458.aligned.sorted.bam
 
-# Identify SNVs using bcftools call and generately varianst (vcf) file
+# Identify SNVs using bcftools call and generately variant (vcf) file
 bcftools call --ploidy 1 -m -v -o results/vcf/ERR8774458.variants.vcf results/bcf/ERR8774458_raw.bcf
 
 # Compress variant file
@@ -51,12 +51,12 @@ bgzip results/vcf/ERR8774458.variants.vcf
 # index variant file
 bcftools index results/vcf/ERR8774458.variants.vcf.gz
 
-# Counting all variants and store value in a text file
-echo "Number of variants: $(zgrep -v -c "^#" results/vcf/ERR8774458.variants.vcf.gz)" > variants.txt 
+# Counting all variants and storing value in a text file
+echo "Number of variants: $(zgrep -v -c "^#" results/vcf/ERR8774458.variants.vcf.gz)" >> variants.txt 
 
-# Count single nucleotides polymorphisms (SNPs) and Insertions/deletions (indels)
-bcftools view -v snps results/vcf/ERR8774458.variants.vcf.gz|grep -v -c "^#"
-bcftools view -v indels results/vcf/ERR8774458.variants.vcf.gz|grep -v -c "^#"
+# Counting single nucleotides polymorphisms (SNPs) and Insertions/deletions (indels)
+echo "Number of snps: $(bcftools view -v snps results/vcf/ERR8774458.variants.vcf.gz|grep -v -c "^#")" >> variants.txt
+echo "Number of indels: $(bcftools view -v indels results/vcf/ERR8774458.variants.vcf.gz|grep -v -c "^#")" >> variants.txt
 
 # Filter snps and indels into separate files
 bcftools view -v snps results/vcf/ERR8774458.variants.vcf.gz -Oz -o results/vcf/snps.vcf.gz
