@@ -1,4 +1,4 @@
-#!bin/bash
+#!/usr/bin/env bash
 
 # Create directory for variant calling
 mkdir variant_calling && cd variant_calling

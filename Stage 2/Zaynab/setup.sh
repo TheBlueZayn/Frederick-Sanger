@@ -1,6 +1,19 @@
-#!bin/bash
-# Install wget for downloading files from the web
-sudo apt-get install wget
+#!/usr/bin/env bash
+
+# Install FastQC for quality control
 sudo apt-get install fastqc
+
+# Install MultiQC
 sudo apt-get install multiqc
+
+# Install FastP for data trimming
 sudo apt-get install fastp
+
+# Install bwa for gene alignment and mapping
+sudo apt-get install bwa
+
+# Install samtools for working with SAM/BAM files
+sudo apt-get install samtools
+
+# Install bcftools for variant calling
+sudo apt-get install bcftools
