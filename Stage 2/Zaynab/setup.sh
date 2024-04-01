@@ -3,7 +3,7 @@
 # Install FastQC for quality control
 sudo apt-get install fastqc
 
-# Install MultiQC
+# Install MultiQC for aggregating fastqc reports
 sudo apt-get install multiqc
 
 # Install FastP for data trimming
