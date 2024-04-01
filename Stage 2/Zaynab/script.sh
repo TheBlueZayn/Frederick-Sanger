@@ -27,6 +27,8 @@ bwa index data/ref/Reference.fasta
 bwa mem data/ref/Reference.fasta trimmed/ERR8774458_1.fastq.gz trimmed/ERR8774458_2.fastq.gz > results/sam/ERR8774458.aligned.sam
 
 
+samtools view -S -b results/sam/ERR8774458.aligned.sam 
+
 samtools view -b -F 0xc results/bam/ERR8774458.aligned.bam -o results/bam/ERR8774458.aligned.filtered.bam
 samtools sort -@ 8 -n results/bam/ERR8774458.aligned.filtered.bam -o results/bam/ERR8774458.aligned.sorted.n.bam
 samtools fixmate -m results/bam/ERR8774458.aligned.sorted.n.bam results/bam/ERR8774458.aligned.fixmate.bam
