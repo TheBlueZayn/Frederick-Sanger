@@ -23,7 +23,7 @@ fastp --detect_adapter_for_pe --overrepresentation_analysis --correction --cut_r
 
 # Map reads to reference genome by 
 mkdir -p results/sam results/bam results/bcf results/vcf
-# Index reference
+# Index reference with bwa
 bwa index data/ref/Reference.fasta
 # Alight reads to reference genome
 bwa mem data/ref/Reference.fasta trimmed/ERR8774458_1.fastq.gz trimmed/ERR8774458_2.fastq.gz > results/sam/ERR8774458.aligned.sam
@@ -31,16 +31,19 @@ bwa mem data/ref/Reference.fasta trimmed/ERR8774458_1.fastq.gz trimmed/ERR877445
 # Convert sam file to bam file 
 samtools view -S -b results/sam/ERR8774458.aligned.sam > results/bam/ERR8774458.aligned.bam
 
-
+# Sort sequemce
 samtools sort -o results/bam/ERR8774458.aligned.sorted.bam results/bam/ERR8774458.aligned.bam
 
+# Index sorted bam file with samtools
 samtools index results/bam/ERR8774458.aligned.sorted.bam
 
+#Generate statistics about the sorted bam file
 samtools flagstat results/bam/ERR8774458.aligned.sorted.bam
 
-
+# Generate pileup format for bam file
 bcftools mpileup -O b -o results/bcf/ERR8774458_raw.bcf -f data/ref/Reference.fasta results/bam/ERR8774458.aligned.sorted.bam
 
+# Identify SNVs using bcftools call and generately varianst (vcf) file
 bcftools call --ploidy 1 -m -v -o results/vcf/ERR8774458.variants.vcf results/bcf/ERR8774458_raw.bcf
 
 # Compress variant file
@@ -48,13 +51,10 @@ bgzip results/vcf/ERR8774458.variants.vcf
 # index variant file
 bcftools index results/vcf/ERR8774458.variants.vcf.gz
 
-
-
-# Counting all variants
-zgrep -v -c "^#" results/vcf/ERR8774458.variants.vcf.gz > variants.txt
+# Counting all variants and store value in a text file
 echo "Number of variants: $(zgrep -v -c "^#" results/vcf/ERR8774458.variants.vcf.gz)" > variants.txt 
 
-# View single nucleotides polymorphisms (SNPs) and Insertions/deletions
+# Count single nucleotides polymorphisms (SNPs) and Insertions/deletions (indels)
 bcftools view -v snps results/vcf/ERR8774458.variants.vcf.gz|grep -v -c "^#"
 bcftools view -v indels results/vcf/ERR8774458.variants.vcf.gz|grep -v -c "^#"
 
@@ -63,16 +63,8 @@ bcftools view -v snps results/vcf/ERR8774458.variants.vcf.gz -Oz -o results/vcf/
 bcftools view -v indels results/vcf/ERR8774458.variants.vcf.gz -Oz -o results/vcf/indels.vcf.gz
 
 
+# Convert the vcf file to  csv file for further analysis and visualisation
+bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' variants.vcf > variant.csv
+# Convert snps and indel vcf files to csv files using bcftools
+bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' ~/Variant/snps.vcf  > snps.csv && bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n'
 
-
-samtools view -b -F 0xc results/bam/ERR8774458.aligned.bam -o results/bam/ERR8774458.aligned.filtered.bam
-samtools sort -@ 8 -n results/bam/ERR8774458.aligned.filtered.bam -o results/bam/ERR8774458.aligned.sorted.n.bam
-samtools fixmate -m results/bam/ERR8774458.aligned.sorted.n.bam results/bam/ERR8774458.aligned.fixmate.bam
-
-samtools sort -@ 8 results/bam/ERR8774458.aligned.fixmate.bam -o results/bam/ERR8774458.aligned.sorted.p.bam
-samtools markdup -r -@ 8 results/bam/ERR8774458.aligned.sorted.p.bam results/bam/ERR8774458.aligned.dedup.bam
-
-freebayes -f data/ref/Reference.fasta -b results/bam/ERR8774458.aligned.dedup.bam --vcf results/vcf/ERR8774458.vcf
-bgzip results/vcf/ERR8774458.vcf
-
-bcftools index results/vcf/ERR8774458.vcf.gz
