@@ -4,7 +4,49 @@
 mkdir variant_calling && cd variant_calling
 
 # Create directory for data
-mkdir -p data/fastq data/ref
+mkdir qc_report
+mkdir trimmed 
+mkdir results
+
+SAMPLES=("ACBarrie", "Alsen", "Baxter", "Chara", "Drysdale")
+
+for s in "${samples[@]}";
+
+do 
+    fastqc *_fastq.gz -o qc_report 
+    multiqc qc_report/*_fastqc.zip -o qc_report
+    fastp \
+    -i "$PWD/${s}_R1.fastq.gz"\
+    -I "${s}_R2.fastq.gz"\
+    -o "trimmed/${s}_R1.trim.fastq.gz"\
+    -O "trimmed/${s}_R1.trim.fastq.gz"\
+    --html trimmed/"${s}_fastp.html"
+
+    bwa index "$PWD/*.fasta"
+
+    bwa mem "$PWD/*.fasta" "trimmed/${s}_R1.trim.fastq.gz" "trimmed/${s}_R2.trim.fastq.gz" > "results/${s}.aligned.sam"
+
+    samtools view -S -b "results/${s}.aligned.sam" > "results/${s}.aligned.bam"
+
+
+    samtools sort -o "results/${s}.aligned.sorted.bam" "results/${s}.aligned.bam"
+
+    samtools index "results/${s}.aligned.sorted.bam"
+
+
+    bcftools mpileup -O b -o "results/${s}.bcf" -f "$PWD/*.fasta" "results/${s}.aligned.sorted.bam"
+
+    bcftools call -m -v -o "results/${s}.variants.vcf" "results/${s}.bcf"
+
+    done
+
+
+
+    bgzip "results/${s}.variants.vcf"
+
+    bcftools "results/${s}.variants.vcf.gz"
+    done
+
 
 # Download reads and reference genome
 wget -P data/fastq https://zenodo.org/records/10426436/files/ERR8774458_1.fastq.gz https://zenodo.org/records/10426436/files/ERR8774458_2.fastq.gz
