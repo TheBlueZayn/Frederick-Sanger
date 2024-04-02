@@ -1,0 +1,11 @@
+required tools are:
+1. wget
+2. fastqc
+3. miultiqc
+4. fastp
+5. bwa
+6. samtools
+7. bcftools
+8. grep
+9. wc
+10.vcfutils.pl varFilter
