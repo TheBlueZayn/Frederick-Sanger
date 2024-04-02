@@ -1,0 +1,10 @@
+Tools required for a basic NGS pipeline:
+1. Fastqc
+2. multiqc 
+3. Fastp
+4. Bwa
+5. samtools
+6. freebayes
+7. bcftools
+8. tabix
+
