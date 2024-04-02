@@ -4,16 +4,17 @@
 mkdir qc_report
 mkdir trimmed 
 mkdir results
-SAMPLES=("ACBarrie", "Alsen", "Baxter", "Chara", "Drysdale")
+samples=("ACBarrie", "Alsen", "Baxter", "Chara", "Drysdale")
 
 for s in "${samples[@]}";
 
 do 
-    fastqc *_fastq.gz -o qc_report 
+    fastqc "$PWD/*_fastq.gz" -o qc_report 
     multiqc qc_report/*_fastqc.zip -o qc_report
+
     fastp \
     -i "$PWD/${s}_R1.fastq.gz"\
-    -I "${s}_R2.fastq.gz"\
+    -I "$PWD/${s}_R2.fastq.gz"\
     -o "trimmed/${s}_R1.trim.fastq.gz"\
     -O "trimmed/${s}_R1.trim.fastq.gz"\
     --html trimmed/"${s}_fastp.html"
