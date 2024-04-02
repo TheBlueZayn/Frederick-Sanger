@@ -17,3 +17,6 @@ sudo apt-get install samtools
 
 # Install bcftools for variant calling
 sudo apt-get install bcftools
+
+# Install tabix for zipping and unzipping files
+sudo apt-get install tabix
