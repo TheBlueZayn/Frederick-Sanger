@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Create directories for variant calling
 mkdir qc_report trimmed results
-samples=("ACBarrie", "Alsen", "Baxter", "Chara", "Drysdale")
+samples=("ACBarrie" "Alsen" "Baxter" "Chara" "Drysdale")
 
 for s in "${samples[@]}"; do 
 # Perform quality control check on both reads, output to qc_folder folder
@@ -13,10 +13,10 @@ for s in "${samples[@]}"; do
     -i "$PWD/${s}_R1.fastq.gz"\
     -I "$PWD/${s}_R2.fastq.gz"\
     -o "trimmed/${s}_R1.trim.fastq.gz"\
-    -O "trimmed/${s}_R1.trim.fastq.gz"\
+    -O "trimmed/${s}_R2.trim.fastq.gz"\
     --html trimmed/"${s}_fastp.html"
 # Map reads to reference genome with bwa
-    bwa index "$PWD/*.fasta"
+    bwa index "$PWD/reference.fasta"
 # Align reads to reference genome
     bwa mem "$PWD/*.fasta" "trimmed/${s}_R1.trim.fastq.gz" "trimmed/${s}_R2.trim.fastq.gz" > "results/${s}.aligned.sam"
 # Convert sam file to bam file 
