@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 
-# Create directory for variant calling
-mkdir variant_calling && cd variant_calling
-
-# Create directory for data
+# Create directories for variant calling
 mkdir qc_report
 mkdir trimmed 
 mkdir results
-
 SAMPLES=("ACBarrie", "Alsen", "Baxter", "Chara", "Drysdale")
 
 for s in "${samples[@]}";
