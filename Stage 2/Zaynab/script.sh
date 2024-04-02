@@ -18,7 +18,7 @@ for s in "${samples[@]}"; do
 # Map reads to reference genome with bwa
     bwa index "$PWD/reference.fasta"
 # Align reads to reference genome
-    bwa mem "$PWD/*.fasta" "trimmed/${s}_R1.trim.fastq.gz" "trimmed/${s}_R2.trim.fastq.gz" > "results/${s}.aligned.sam"
+    bwa mem "$PWD/reference.fasta" "trimmed/${s}_R1.trim.fastq.gz" "trimmed/${s}_R2.trim.fastq.gz" > "results/${s}.aligned.sam"
 # Convert sam file to bam file 
     samtools view -S -b "results/${s}.aligned.sam" > "results/${s}.aligned.bam"
 
@@ -27,7 +27,7 @@ for s in "${samples[@]}"; do
 # Index sorted bam file with samtools
     samtools index "results/${s}.aligned.sorted.bam"
 # Generate pileup format for bam file
-    bcftools mpileup -O b -o "results/${s}.bcf" -f "$PWD/*.fasta" "results/${s}.aligned.sorted.bam"
+    bcftools mpileup -O b -o "results/${s}.bcf" -f "$PWD/reference.fasta" "results/${s}.aligned.sorted.bam"
 # Identify variants using bcftools call and generately variant (vcf) file
     bcftools call -m -v -o "results/${s}.variants.vcf" "results/${s}.bcf"
 done
