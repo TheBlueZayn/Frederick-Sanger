@@ -5,7 +5,7 @@ samples=("ACBarrie", "Alsen", "Baxter", "Chara", "Drysdale")
 
 for s in "${samples[@]}"; do 
 # Perform quality control check on both reads, output to qc_folder folder
-    fastqc "$PWD/*.fastq.gz" -o qc_report 
+    fastqc "$PWD/${s}_R1.fastq.gz" "$PWD/${s}_R2.fastq.gz" -o qc_report 
 # Aggregate fastqc reports     
     multiqc qc_report/*_fastqc.zip -o qc_report
 # Trim faulty reads with fastp, output to trimmed folder
