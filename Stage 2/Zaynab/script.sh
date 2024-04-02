@@ -5,7 +5,7 @@ samples=("ACBarrie", "Alsen", "Baxter", "Chara", "Drysdale")
 
 for s in "${samples[@]}"; do 
 # Perform quality control check on both reads, output to qc_folder folder
-    fastqc "$PWD/*_fastq.gz" -o qc_report 
+    fastqc "$PWD/*.fastq.gz" -o qc_report 
 # Aggregate fastqc reports     
     multiqc qc_report/*_fastqc.zip -o qc_report
 # Trim faulty reads with fastp, output to trimmed folder
@@ -30,7 +30,5 @@ for s in "${samples[@]}"; do
     bcftools mpileup -O b -o "results/${s}.bcf" -f "$PWD/*.fasta" "results/${s}.aligned.sorted.bam"
 # Identify variants using bcftools call and generately variant (vcf) file
     bcftools call -m -v -o "results/${s}.variants.vcf" "results/${s}.bcf"
-# Compress variant file  
-    bgzip "results/${s}.variants.vcf"
 done
 
