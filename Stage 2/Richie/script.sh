@@ -7,8 +7,13 @@
   wget https://zenodo.org/records/10426436/files/ERR8774458_2.fastq.gz
   wget https://zenodo.org/records/10886725/files/Reference.fasta
   
-  # FASTQC checking and validate QC report #
-  fastqc *.fastq.gz
+  # Create a directory to save fastQC outputs to #
+  mkdir -p QC_Reports 
+  fastqc ERR8774458_1.fastq.gz ERR8774458_2.fastq.gz --outdir QC_Reports (output will be in QC_Reports file)
+
+  # fastqc produces outputs for each fastq file. One could examine the outputs individually by opening the html in a web browser but, it’s much easier to 
+  summarise this information using a tool called multiQC (when there are many samples) #
+  -In the QC_reports directory, run the following command: multiqc . 
   
   # Trimming done using trimmomatic tools to remoe bad quality reads #
   conda install trimmomatic

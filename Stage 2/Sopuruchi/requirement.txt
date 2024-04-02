@@ -1,0 +1,7 @@
+# List of tools used
+fastqc
+multiqc
+fastp
+bwa
+samtools
+bcftools
