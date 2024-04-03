@@ -19,7 +19,7 @@ fastqc $name/data/*.fastq.gz -o $name/qc_report
 multiqc $name/qc_report/*_fastqc.zip -o $name/qc_report
 
 # Trim faulty reads with fastp, output to trimmed folder
-fastp -i $name/data/"$name"_R1.fastq.gz -I $name/data/"$name"_R2.fastq.gz -o $name/trimmed/"$name"_R1.trimm.fastq.gz -O $name/trimmed/"$name"_R2.trimm.fastq.gz --html $name/trimmed/"$name"_fastp.html --json $name/trimmed/"$name"_fastp.json
+fastp -i $name/data/"$name"*1.fastq.gz -I $name/data/"$name"*2.fastq.gz -o $name/trimmed/"$name"_R1.trimm.fastq.gz -O $name/trimmed/"$name"_R2.trimm.fastq.gz --html $name/trimmed/"$name"_fastp.html --json $name/trimmed/"$name"_fastp.json
 
 # Map reads to reference genome with bwa
 bwa index $name/data/reference.fasta
