@@ -42,6 +42,7 @@ bcftools mpileup -O b -o $name/results/"$name".bcf -f $name/data/reference.fasta
 # Identify variants using bcftools call and generately variant (vcf) file
 bcftools call -m -v -o $name/results/"$name".variants.vcf $name/results/"$name".bcf
 
+# Compress variant file
 # bgzip $name/results/"$name".variants.vcf
 
 
