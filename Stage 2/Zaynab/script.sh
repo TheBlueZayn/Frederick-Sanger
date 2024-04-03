@@ -1,34 +1,47 @@
-#!/usr/bin/env bash
-# Create directories for variant calling
-mkdir qc_report trimmed results
-samples=("ACBarrie" "Alsen" "Baxter" "Chara" "Drysdale")
+# Receive inputs
+read -p "Input name of the gene:" name
+read -p "Input link to forward read:" R1
+read -p "Input link to backward read:" R2
+read -p "Input link to reference fasta data:" ref
 
-for s in "${samples[@]}"; do 
+# Create directory of name of gene and sub directories
+mkdir -p $name/data $name/qc_report $name/trimmed $name/results
+
+# Download datasets and store in data folder
+wget -P $name/data $R1
+wget -P $name/data $R2
+wget -P $name/data $ref
+
 # Perform quality control check on both reads, output to qc_folder folder
-    fastqc "$PWD/${s}_R1.fastq.gz" "$PWD/${s}_R2.fastq.gz" -o qc_report 
-# Aggregate fastqc reports     
-    multiqc qc_report/*_fastqc.zip -o qc_report
+fastqc $name/data/*.fastq.gz -o $name/qc_report
+
+# Aggregate fastqc reports 
+multiqc $name/qc_report/*_fastqc.zip -o $name/qc_report
+
 # Trim faulty reads with fastp, output to trimmed folder
-    fastp \
-    -i "$PWD/${s}_R1.fastq.gz"\
-    -I "$PWD/${s}_R2.fastq.gz"\
-    -o "trimmed/${s}_R1.trim.fastq.gz"\
-    -O "trimmed/${s}_R2.trim.fastq.gz"\
-    --html trimmed/"${s}_fastp.html"
+fastp -i $name/data/"$name"_R1.fastq.gz -I $name/data/"$name"_R2.fastq.gz -o $name/trimmed/"$name"_R1.trimm.fastq.gz -O $name/trimmed/"$name"_R2.trimm.fastq.gz --html $name/trimmed/"$name"_fastp.html --json $name/trimmed/"$name"_fastp.json
+
 # Map reads to reference genome with bwa
-    bwa index "$PWD/reference.fasta"
+bwa index $name/data/reference.fasta
+
 # Align reads to reference genome
-    bwa mem "$PWD/reference.fasta" "trimmed/${s}_R1.trim.fastq.gz" "trimmed/${s}_R2.trim.fastq.gz" > "results/${s}.aligned.sam"
-# Convert sam file to bam file 
-    samtools view -S -b "results/${s}.aligned.sam" > "results/${s}.aligned.bam"
+bwa mem $name/data/reference.fasta $name/trimmed/"$name"_R1.trimm.fastq.gz $name/trimmed/"$name"_R2.trimm.fastq.gz > $name/results/"$name".aligned.sam
+
+# Convert sam file to bam file
+samtools view -S -b $name/results/"$name".aligned.sam > $name/results/"$name".aligned.bam
 
 # Sort sequemce
-    samtools sort -o "results/${s}.aligned.sorted.bam" "results/${s}.aligned.bam"
+samtools sort -o $name/results/"$name".aligned.sorted.bam $name/results/"$name".aligned.bam
+
 # Index sorted bam file with samtools
-    samtools index "results/${s}.aligned.sorted.bam"
+samtools index $name/results/"$name".aligned.sorted.bam
+
 # Generate pileup format for bam file
-    bcftools mpileup -O b -o "results/${s}.bcf" -f "$PWD/reference.fasta" "results/${s}.aligned.sorted.bam"
+bcftools mpileup -O b -o $name/results/"$name".bcf -f $name/data/reference.fasta $name/results/"$name".aligned.sorted.bam
+
 # Identify variants using bcftools call and generately variant (vcf) file
-    bcftools call -m -v -o "results/${s}.variants.vcf" "results/${s}.bcf"
-done
+bcftools call -m -v -o $name/results/"$name".variants.vcf $name/results/"$name".bcf
+
+# bgzip $name/results/"$name".variants.vcf
+
 
