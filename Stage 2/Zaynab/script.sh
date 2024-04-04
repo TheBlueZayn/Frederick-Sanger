@@ -12,6 +12,7 @@ wget -O $name/data/"$name"_R1.fastq.gz $R1
 wget -O $name/data/"$name"_R2.fastq.gz $R2
 wget -O $name/data/ref/reference.fasta $reference
 
+echo "All files have been downloaded"
 
 # Perform quality control check on both reads, output to qc_folder folder
 fastqc $name/data/*.fastq.gz -o $name/qc_report
@@ -42,6 +43,8 @@ bcftools mpileup -O b -o $name/results/"$name".bcf -f $name/data/ref/reference.f
 
 # Identify variants using bcftools call and generately variant (vcf) file
 bcftools call -m -v -o $name/results/"$name".variants.vcf $name/results/"$name".bcf
+
+echo "Variant file has been generated"
 
 # # Compress variant file
 # # bgzip $name/results/"$name".variants.vcf
