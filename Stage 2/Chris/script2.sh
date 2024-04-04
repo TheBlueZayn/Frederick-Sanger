@@ -6,7 +6,7 @@ reference_name="reference.fasta"
 
 # Download the reference genome
 wget -O "$reference_name" "$reference_url"
-    echo "Downloaded reference genome."
+echo "Downloaded reference genome."
 
 # Define an array of sample URLs
 sample_urls=(
@@ -75,11 +75,6 @@ for url in "${sample_urls[@]}"; do
   # Variant calling using freebayes
   freebayes -f "$reference_name" "$name"/Mapping/"$name".sorted.bam > "$name"/"$name".vcf
   echo "Performed variant calling for $name."
-
-  # Compress and index the VCF file
-  bgzip "$name"/"$name".vcf
-  tabix "$name"/"$name".vcf.gz
-  echo "Compressed and indexed VCF file for $name."
 
   # Convert VCF to CSV
   echo -e "Sample\tCHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER" > "$name"/"$name".csv
