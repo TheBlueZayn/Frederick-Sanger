@@ -8,9 +8,9 @@ read -p "Input link to reference fasta data:" reference
 mkdir -p $name/data/ref $name/qc_report $name/trimmed $name/results 
 
 # Download datasets and store in data folder
-wget -P $name/data -O "$name"_R1.fastq.gz $R1
-wget -P $name/data -O "$name"_R2.fastq.gz $R2
-wget -P $name/data/ref -O reference.fasta $reference
+wget -O "$name"_R1.fastq.gz -P $name/data $R1
+wget -O "$name"_R2.fastq.gz -P $name/data $R2
+wget -O reference.fasta -P $name/data/ref $reference
 
 
 # # Perform quality control check on both reads, output to qc_folder folder
