@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Define the URL for the reference genome and the desired filename
-reference_url="https://raw.githubusercontent.com/josoga2/yt-dataset/main/dataset/raw_reads/reference.fasta"
+reference_url="dirname/reference.fasta"
 reference_name="reference.fasta"
 
 # Download the reference genome
