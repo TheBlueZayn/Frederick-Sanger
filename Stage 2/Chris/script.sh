@@ -1,71 +1,95 @@
 #!/usr/bin/env bash
 
-# Make a new directory for Project 3 and change to Project 3 directory
-mkdir Project3 && cd "$_"
-
-# Download the forward sequence
-wget "https://zenodo.org/records/10426436/files/ERR8774458_1.fastq.gz?download=1"
-
-# Download the reverse sequence
-wget "https://zenodo.org/records/10426436/files/ERR8774458_2.fastq.gz?download=1"
-
-# Rename the files
-mv ERR8774458_1.fastq.gz?download=1 ERR8774458_1.fastq.gz
-mv ERR8774458_2.fastq.gz?download=1 ERR8774458_2.fastq.gz
-
-# Make directory to output the results of quality control
-mkdir QC_Reports
-
-# Quality control
-fastqc ERR8774458_1.fastq.gz ERR8774458_2.fastq.gz -o QC_Reports
-
-# Use MultiQC to summarize the QC results
-multiqc .
-
-# Trimming and Filtering
-java -jar ~/bin/trimmomatic/trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 ERR8774458_1.fastq.gz ERR8774458_2.fastq.gz paired1.fastq.gz unpaired1.fastq.gz paired2.fastq.gz unpaired2.fastq.gz SLIDINGWINDOW:3:20 MINLEN:50
-
-# Decompress the files
-gunzip paired1.fastq.gz
-gunzip paired2.fastq.gz
+# Define the URL for the reference genome and the desired filename
+reference_url="dirname/reference.fasta"
+reference_name="reference.fasta"
 
 # Download the reference genome
-wget "https://zenodo.org/records/10886725/files/Reference.fasta?download=1"
+wget -O "$reference_name" "$reference_url"
+echo "Downloaded reference genome."
 
-# Rename the reference genome
-mv Reference.fasta?download=1 Reference.fasta
+# Define an array of sample URLs
+sample_urls=(
+  "dirname/name1_R1.fastq.gz"
+  "dirname/name1_R2.fastq.gz"
+  "dirname/name2_R1.fastq.gz"
+  "dirname/name2_R2.fastq.gz"
+  "dirname/name3_R1.fastq.gz"
+  "dirname/name3_R2.fastq.gz"
+  "dirname/name4_R1.fastq.gz"
+  "dirname/name4_R2.fastq.gz"
+  "dirname/name5_R1.fastq.gz"
+  "dirname/name5_R2.fastq.gz"
+)
 
-# Make a new directory 'Mapping' to output our mapping results
-mkdir Mapping
+# Index the reference genome for mapping 
+bwa index "$reference_name"
+echo "Indexed reference genome for mapping."
 
-# Index the reference genome
-bwa index Reference.fasta
+# Loop through each sample URL
+for url in "${sample_urls[@]}"; do
+  # Extract the sample name from the URL using cut
+  name=$(basename "$url" | cut -d '_' -f 1)
+  echo "Processing sample: $name"
+  
+  # Download the dataset
+  wget -O "${name}_R1.fastq.gz" "$url"
+  wget -O "${name}_R2.fastq.gz" "$(dirname "$url")/${name}_R2.fastq.gz"
+  echo "Downloaded dataset for $name."
 
-# Map the preprocessed sequences to the reference genome
-bwa mem Reference.fasta paired1.fastq paired2.fastq > Mapping/aligned.sam
+  # Create directories for quality control and mapping
+  mkdir -p "$name"/QC_Reports
+  mkdir -p "$name"/Mapping
+  echo "Created directories for quality control and mapping for $name."
+  
+  # Quality control for both R1 and R2 reads
+  fastqc "${name}_R1.fastq.gz" "${name}_R2.fastq.gz" -o "$name"/QC_Reports
+  echo "Performed quality control for $name."
 
-# Convert the sam file to a bam file
-samtools view -@ 20 -S -b Mapping/aligned.sam > Mapping/aligned.bam
+  # Summarize QC results
+  multiqc "$name"/QC_Reports
+  echo "Summarized QC results for $name."
+  
+  # Trim using Trimomatic
+  java -jar ~/bin/trimmomatic/trimmomatic-0.39/trimmomatic-0.39.jar \
+  PE -phred33 \
+  "${name}_R1.fastq.gz" "${name}_R2.fastq.gz" \
+  "${name}_R1_trimmed.fastq.gz" "${name}_R1_unpaired.fastq.gz" \
+  "${name}_R2_trimmed.fastq.gz" "${name}_R2_unpaired.fastq.gz" \
+  TRAILING:20 MINLEN:50
+  echo "Trimmed reads for $name."
 
-# Sort bam file based on the order the reads were mapped
-samtools sort -@ 32 -o Mapping/aligned.sorted.bam Mapping/aligned.bam
+  # Mapping
+  bwa mem "$reference_name" "${name}_R1_trimmed.fastq.gz" "${name}_R2_trimmed.fastq.gz" > "$name"/Mapping/"$name".sam
+  samtools view -@ 20 -S -b "$name"/Mapping/"$name".sam > "$name"/Mapping/"$name".bam
+  samtools sort -@ 32 -o "$name"/Mapping/"$name".sorted.bam "$name"/Mapping/"$name".bam
+  samtools index "$name"/Mapping/"$name".sorted.bam
+  echo "Performed mapping for $name."
 
-# Index the sorted bam file
-samtools index Mapping/aligned.sorted.bam
+  # Index the reference genome for variant calling (if not already indexed)
+  if [ ! -f "$reference_name".fai ]; then
+      samtools faidx "$reference_name"
+      echo "Indexed reference genome for variant calling."
+  fi
 
-# Variant calling 
-# Index the reference genome using samtools
-samtools faidx Reference.fasta
+  # Variant calling using freebayes
+  freebayes -f "$reference_name" "$name"/Mapping/"$name".sorted.bam > "$name"/"$name".vcf
+  echo "Performed variant calling for $name."
 
-# Variant calling with freebayes
-freebayes -f Reference.fasta Mapping/aligned.sorted.bam > variants.vcf
+  # Convert VCF to CSV
+  echo -e "Sample\tCHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER" > "$name"/"$name".csv
+  bcftools query -l "$name"/"$name".vcf.gz | sed 's/$/'$'\t''/' > "$name"/sample_column.txt
+  paste "$name"/sample_column.txt <(bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' "$name"/"$name".vcf.gz) >> "$name"/"$name".csv
+  echo "Converted VCF to CSV for $name."
 
-# Compress the vcf file
-bgzip variants.vcf
+  # Move the CSV file to the main directory
+  mv "$name"/"$name".csv .
 
-# Decopress the vcf file
-tabix variants.vcf.gz
+done
 
-# Convert the vcf file to a .csv file for further analysis and visualisation
-echo -e "CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER" > output.csv #Echos the header
-bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' variants.vcf.gz >> output.csv
+# Merge CSV files for all samples
+echo "Merging CSV files..."
+cat */*.csv > merged.csv
+echo "Merged CSV files for all samples."
+
+echo "Analysis completed successfully!"
