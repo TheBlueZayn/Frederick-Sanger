@@ -1,7 +1,7 @@
 # Receive inputs
 read -p "Input name of the gene:" name
 read -p "Input link to forward read:" R1
-read -p "Input link to backward read:" R2
+read -p "Input link to reverse read:" R2
 read -p "Input link to reference fasta data:" reference
 
 # Create directory of name of gene and sub directories
