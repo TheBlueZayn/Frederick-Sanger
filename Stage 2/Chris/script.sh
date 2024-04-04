@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Define the URL for the reference genome and the desired filename
-reference_url="dirname/reference.fasta"
+reference_url="PATH/reference.fasta"
 reference_name="reference.fasta"
 
 # Download the reference genome
@@ -10,13 +10,13 @@ echo "Downloaded reference genome."
 
 # Define an array of sample URLs
 sample_urls=(
-  "dirname/name1_R1.fastq.gz"
-  "dirname/name1_R2.fastq.gz"
-  "dirname/name2_R1.fastq.gz"
-  "dirname/name2_R2.fastq.gz"
-  "dirname/name3_R1.fastq.gz"
-  "dirname/name3_R2.fastq.gz"
-  "dirname/name4_R1.fastq.gz"
+  "PATH/name1_R1.fastq.gz"
+  "PATH/name1_R2.fastq.gz"
+  "PATH/name2_R1.fastq.gz"
+  "PATH/name2_R2.fastq.gz"
+  "PATH/name3_R1.fastq.gz"
+  "PATH/name3_R2.fastq.gz"
+  "/name4_R1.fastq.gz"
   "dirname/name4_R2.fastq.gz"
   "dirname/name5_R1.fastq.gz"
   "dirname/name5_R2.fastq.gz"
