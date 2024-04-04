@@ -16,10 +16,10 @@ sample_urls=(
   "PATH/name2_R2.fastq.gz"
   "PATH/name3_R1.fastq.gz"
   "PATH/name3_R2.fastq.gz"
-  "/name4_R1.fastq.gz"
-  "dirname/name4_R2.fastq.gz"
-  "dirname/name5_R1.fastq.gz"
-  "dirname/name5_R2.fastq.gz"
+  "PATH/name4_R1.fastq.gz"
+  "PATH/name4_R2.fastq.gz"
+  "PATH/name5_R1.fastq.gz"
+  "PATH/name5_R2.fastq.gz"
 )
 
 # Index the reference genome for mapping 
