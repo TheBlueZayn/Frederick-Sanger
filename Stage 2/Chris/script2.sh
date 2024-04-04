@@ -10,16 +10,16 @@ echo "Downloaded reference genome."
 
 # Define an array of sample URLs
 sample_urls=(
-  "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/ACBarrie_R1.fastq.gz"
-  "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/ACBarrie_R2.fastq.gz"
-  "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/Alsen_R1.fastq.gz"
-  "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/Alsen_R2.fastq.gz"
-  "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/Baxter_R1.fastq.gz"
-  "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/Baxter_R2.fastq.gz"
-  "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/Chara_R1.fastq.gz"
-  "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/Chara_R2.fastq.gz"
-  "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/Drysdale_R1.fastq.gz"
-  "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/Drysdale_R2.fastq.gz"
+  "dirname/name1_R1.fastq.gz"
+  "dirname/name1_R2.fastq.gz"
+  "dirname/name2_R1.fastq.gz"
+  "dirname/name2_R2.fastq.gz"
+  "dirname/name3_R1.fastq.gz"
+  "dirname/name3_R2.fastq.gz"
+  "dirname/name4_R1.fastq.gz"
+  "dirname/name4_R2.fastq.gz"
+  "dirname/name5_R1.fastq.gz"
+  "dirname/name5_R2.fastq.gz"
 )
 
 # Index the reference genome for mapping 
