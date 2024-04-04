@@ -2,15 +2,23 @@
 read -p "Input name of the gene:" name
 read -p "Input link to forward read:" R1
 read -p "Input link to backward read:" R2
-read -p "Input link to reference fasta data:" ref
+read -p "Input link to reference fasta data:" reference
 
 # Create directory of name of gene and sub directories
-mkdir -p $name/data $name/qc_report $name/trimmed $name/results
+mkdir -p $name/data/ref $name/qc_report $name/trimmed $name/results 
 
 # Download datasets and store in data folder
 wget -P $name/data $R1
 wget -P $name/data $R2
-wget -P $name/data $ref
+wget -P $name/data/ref $reference
+
+
+# Renaming reference file for uniformity
+if [ ! -f "$name/data/ref/reference.fasta" ]; then
+    mv $name/data/ref/* $name/data/ref/reference.fasta
+else
+    echo "Your data is ready to go..."
+fi
 
 # Perform quality control check on both reads, output to qc_folder folder
 fastqc $name/data/*.fastq.gz -o $name/qc_report
@@ -22,10 +30,10 @@ multiqc $name/qc_report/*_fastqc.zip -o $name/qc_report
 fastp -i $name/data/"$name"*1.fastq.gz -I $name/data/"$name"*2.fastq.gz -o $name/trimmed/"$name"_R1.trimm.fastq.gz -O $name/trimmed/"$name"_R2.trimm.fastq.gz --html $name/trimmed/"$name"_fastp.html --json $name/trimmed/"$name"_fastp.json
 
 # Map reads to reference genome with bwa
-bwa index $name/data/reference.fasta
+bwa index $name/data/ref/reference.fasta
 
 # Align reads to reference genome
-bwa mem $name/data/reference.fasta $name/trimmed/"$name"_R1.trimm.fastq.gz $name/trimmed/"$name"_R2.trimm.fastq.gz > $name/results/"$name".aligned.sam
+bwa mem $name/data/ref/reference.fasta $name/trimmed/"$name"_R1.trimm.fastq.gz $name/trimmed/"$name"_R2.trimm.fastq.gz > $name/results/"$name".aligned.sam
 
 # Convert sam file to bam file
 samtools view -S -b $name/results/"$name".aligned.sam > $name/results/"$name".aligned.bam
@@ -37,7 +45,7 @@ samtools sort -o $name/results/"$name".aligned.sorted.bam $name/results/"$name".
 samtools index $name/results/"$name".aligned.sorted.bam
 
 # Generate pileup format for bam file
-bcftools mpileup -O b -o $name/results/"$name".bcf -f $name/data/reference.fasta $name/results/"$name".aligned.sorted.bam
+bcftools mpileup -O b -o $name/results/"$name".bcf -f $name/data/ref/reference.fasta $name/results/"$name".aligned.sorted.bam
 
 # Identify variants using bcftools call and generately variant (vcf) file
 bcftools call -m -v -o $name/results/"$name".variants.vcf $name/results/"$name".bcf
