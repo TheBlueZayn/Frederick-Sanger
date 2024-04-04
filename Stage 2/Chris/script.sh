@@ -60,12 +60,15 @@ samtools faidx Reference.fasta
 # Variant calling with freebayes
 freebayes -f Reference.fasta Mapping/aligned.sorted.bam > variants.vcf
 
-# Compress the vcf file
-bgzip variants.vcf
-
-# Decopress the vcf file
-tabix variants.vcf.gz
-
 # Convert the vcf file to a .csv file for further analysis and visualisation
 echo -e "CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER" > output.csv #Echos the header
 bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' variants.vcf.gz >> output.csv
+
+# Creat snps and indels files from variant vcf file using bcftools
+bcftools view -v snps variants.vcf > snps.vcf && bcftools view -v indels variants.vcf  >  indels.vcf
+
+# Convert snps and indel vcf files to csv files using bcftools
+bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' ~/Variant/snps.vcf  > snps.csv && bcftools query -f '%CHROM\t%POS\t%ID\t%REF\t%ALT\t%QUAL\t%FILTER\n' ~/Variant/indels.vcf  >  indels.csv
+
+# Count the number of snps and indels from csv files
+wc -l snps.csv && wc -l indels.csv
