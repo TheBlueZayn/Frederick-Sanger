@@ -49,6 +49,8 @@ bcftools mpileup -O b -o $name/Results/"$name".bcf -f $name/data/reference.fasta
 # Call variants using bcftool and create vcf file
 bcftools call -m -v -o $name/Results/"$name".variants.vcf $name/Results/"$name".bcf
 
+echo "successfully done!"
+
 
 
 
