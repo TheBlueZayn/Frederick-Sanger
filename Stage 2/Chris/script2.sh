@@ -4,12 +4,9 @@
 reference_url="https://raw.githubusercontent.com/josoga2/yt-dataset/main/dataset/raw_reads/reference.fasta"
 reference_name="reference.fasta"
 
-# Download the reference genome if it's not already present
-if [ ! -f "$reference_name" ]; then
-    echo "Downloading reference genome..."
-    wget -O "$reference_name" "$reference_url"
+# Download the reference genome
+wget -O "$reference_name" "$reference_url"
     echo "Downloaded reference genome."
-fi
 
 # Define an array of sample URLs
 sample_urls=(
@@ -25,11 +22,9 @@ sample_urls=(
   "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/Drysdale_R2.fastq.gz"
 )
 
-# Index the reference genome for mapping (if not already indexed)
-if [ ! -f "$reference_name".bwt ]; then
-    bwa index "$reference_name"
-    echo "Indexed reference genome for mapping."
-fi
+# Index the reference genome for mapping 
+bwa index "$reference_name"
+echo "Indexed reference genome for mapping."
 
 # Loop through each sample URL
 for url in "${sample_urls[@]}"; do
