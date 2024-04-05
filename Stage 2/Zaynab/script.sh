@@ -52,7 +52,7 @@ echo "Mapping done! Time to call out the variants"
 
 bcftools call -m -v -o $name/results/"$name".variants.vcf $name/results/"$name".bcf
 
-echo "Variant file has been generated check $name folder!"
+echo "Variant file has been generated, check the results subfolder in $name folder!"
 
 # # Compress variant file
 # # bgzip $name/results/"$name".variants.vcf
