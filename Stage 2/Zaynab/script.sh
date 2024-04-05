@@ -1,20 +1,20 @@
-echo "This is a variant calling pipeline"
-echo "Some details would be needed"
+echo "This is a variant calling pipeline :)"
+echo "Some details would be needed!"
 # Receive inputs
 read -p "Input name of the gene:" name
-read -p "Input link to forward read:" R1
-read -p "Input link to reverse read:" R2
+read -p "Input link to forward read:" Read1
+read -p "Input link to reverse read:" Read2
 read -p "Input link to reference fasta data:" reference
 
 # Create directory of name of gene and sub directories
 mkdir -p $name/data/ref $name/qc_report $name/trimmed $name/results 
 
 # Download datasets and store in data folder
-wget -O $name/data/"$name"_R1.fastq.gz $R1
-wget -O $name/data/"$name"_R2.fastq.gz $R2
+wget -O $name/data/"$name"_R1.fastq.gz $Read1
+wget -O $name/data/"$name"_R2.fastq.gz $Read2
 wget -O $name/data/ref/reference.fasta $reference
 
-echo "All files have been downloaded"
+echo "All files have been downloaded :)"
 
 # Perform quality control check on both reads, output to qc_folder folder
 fastqc $name/data/*.fastq.gz -o $name/qc_report
