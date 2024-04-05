@@ -9,3 +9,4 @@ required tools are:
 8. grep
 9. wc
 10.vcfutils.pl varFilter
+11. bowtie2 for alignment 
