@@ -1,0 +1,13 @@
+List of all the tools use
+
+1)FastQC for quality control
+
+2)MultiQC to combine QC files
+
+3)Fastp to trim the unwanted sequences
+
+4)BWA for genome indexing and alignment
+
+5)Samtools for working with SAM/BAM files
+
+6)bcftools for working with vcf
