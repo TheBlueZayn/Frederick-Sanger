@@ -17,15 +17,19 @@ wget -O $name/data/ref/reference.fasta $reference
 echo "All files have been downloaded :)"
 
 # Perform quality control check on both reads, output to qc_folder folder
+echo "Time to check quality of the data"
 fastqc $name/data/*.fastq.gz -o $name/qc_report
 
 # Aggregate fastqc reports 
 multiqc $name/qc_report/*_fastqc.zip -o $name/qc_report
 
+
 # Trim faulty reads with fastp, output to trimmed folder
+echo "Trimming on its wayyyy"
 fastp -i $name/data/"$name"*1.fastq.gz -I $name/data/"$name"*2.fastq.gz -o $name/trimmed/"$name"_R1.trimm.fastq.gz -O $name/trimmed/"$name"_R2.trimm.fastq.gz --html $name/trimmed/"$name"_fastp.html --json $name/trimmed/"$name"_fastp.json
 
 # Map reads to reference genome with bwa
+echo "Trimming done! Time to map to reference gene"
 bwa index $name/data/ref/reference.fasta
 
 # Align reads to reference genome
@@ -44,6 +48,8 @@ samtools index $name/results/"$name".aligned.sorted.bam
 bcftools mpileup -O b -o $name/results/"$name".bcf -f $name/data/ref/reference.fasta $name/results/"$name".aligned.sorted.bam
 
 # Identify variants using bcftools call and generately variant (vcf) file
+echo "Mapping done! Time to call out the variants"
+
 bcftools call -m -v -o $name/results/"$name".variants.vcf $name/results/"$name".bcf
 
 echo "Variant file has been generated check $name folder!"
