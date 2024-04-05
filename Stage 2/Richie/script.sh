@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # List of URLs for the datasets
 urls=(
     "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/ACBarrie_R1.fastq.gz"
@@ -14,7 +13,6 @@ urls=(
     "https://github.com/josoga2/yt-dataset/raw/main/dataset/raw_reads/Drysdale_R2.fastq.gz"
     "https://raw.githubusercontent.com/josoga2/yt-dataset/main/dataset/raw_reads/reference.fasta"
 )
-
 # Directory to save the downloaded files
 save_dir="datasets"
 
