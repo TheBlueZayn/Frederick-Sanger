@@ -1,3 +1,5 @@
+echo "This is a variant calling pipeline"
+echo "Some details would be needed"
 # Receive inputs
 read -p "Input name of the gene:" name
 read -p "Input link to forward read:" R1
@@ -44,7 +46,7 @@ bcftools mpileup -O b -o $name/results/"$name".bcf -f $name/data/ref/reference.f
 # Identify variants using bcftools call and generately variant (vcf) file
 bcftools call -m -v -o $name/results/"$name".variants.vcf $name/results/"$name".bcf
 
-echo "Variant file has been generated"
+echo "Variant file has been generated check $name folder!"
 
 # # Compress variant file
 # # bgzip $name/results/"$name".variants.vcf
