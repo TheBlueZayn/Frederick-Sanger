@@ -78,3 +78,9 @@
 		  bcftools mpileup -Ou -f dataset/ref1/ref_1.fasta "sorted/${Sample}_sortedalign.bam" |bcftools call -mv -Ov -o "variant/${Sample}_variants.vcf"
 
 	  done
+
+# Give permission to execute
+  chmod u+x loop.sh
+
+# Execute loop.sh
+  ./loop.sh
