@@ -1,0 +1,32 @@
+#!/bin/bash
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/008/ERR9516228/ERR9516228_1.fastq.gz -o ERR9516228_HiSeq_X_Ten_paired_end_sequencing_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/008/ERR9516228/ERR9516228_2.fastq.gz -o ERR9516228_HiSeq_X_Ten_paired_end_sequencing_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/008/ERR9516338/ERR9516338_1.fastq.gz -o ERR9516338_HiSeq_X_Ten_paired_end_sequencing_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/008/ERR9516338/ERR9516338_2.fastq.gz -o ERR9516338_HiSeq_X_Ten_paired_end_sequencing_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/006/ERR9516226/ERR9516226_1.fastq.gz -o ERR9516226_HiSeq_X_Ten_paired_end_sequencing_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/006/ERR9516226/ERR9516226_2.fastq.gz -o ERR9516226_HiSeq_X_Ten_paired_end_sequencing_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/007/ERR9516287/ERR9516287_1.fastq.gz -o ERR9516287_HiSeq_X_Ten_paired_end_sequencing_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/007/ERR9516287/ERR9516287_2.fastq.gz -o ERR9516287_HiSeq_X_Ten_paired_end_sequencing_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR829/004/SRR8294664/SRR8294664_1.fastq.gz -o SRR8294664_Other_Sequencing_of_Salmonella_enterica_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR829/004/SRR8294664/SRR8294664_2.fastq.gz -o SRR8294664_Other_Sequencing_of_Salmonella_enterica_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/009/ERR9516349/ERR9516349_1.fastq.gz -o ERR9516349_HiSeq_X_Ten_paired_end_sequencing_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/009/ERR9516349/ERR9516349_2.fastq.gz -o ERR9516349_HiSeq_X_Ten_paired_end_sequencing_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR832/005/SRR8327695/SRR8327695_1.fastq.gz -o SRR8327695_Other_Sequencing_of_Salmonella_enterica_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR832/005/SRR8327695/SRR8327695_2.fastq.gz -o SRR8327695_Other_Sequencing_of_Salmonella_enterica_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/004/ERR9516354/ERR9516354_1.fastq.gz -o ERR9516354_HiSeq_X_Ten_paired_end_sequencing_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/004/ERR9516354/ERR9516354_2.fastq.gz -o ERR9516354_HiSeq_X_Ten_paired_end_sequencing_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR815/009/SRR8159839/SRR8159839_1.fastq.gz -o SRR8159839_Whole_genome_Illumina_MiSeq_sequence_of_Salmonella_enterica_subsp._enterica_serovar_Concord_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR815/009/SRR8159839/SRR8159839_2.fastq.gz -o SRR8159839_Whole_genome_Illumina_MiSeq_sequence_of_Salmonella_enterica_subsp._enterica_serovar_Concord_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/006/ERR9516356/ERR9516356_1.fastq.gz -o ERR9516356_HiSeq_X_Ten_paired_end_sequencing_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/006/ERR9516356/ERR9516356_2.fastq.gz -o ERR9516356_HiSeq_X_Ten_paired_end_sequencing_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR815/002/SRR8159842/SRR8159842_1.fastq.gz -o SRR8159842_Whole_genome_Illumina_MiSeq_sequence_of_Salmonella_enterica_subsp._enterica_serovar_Concord_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR815/002/SRR8159842/SRR8159842_2.fastq.gz -o SRR8159842_Whole_genome_Illumina_MiSeq_sequence_of_Salmonella_enterica_subsp._enterica_serovar_Concord_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/009/ERR9516189/ERR9516189_1.fastq.gz -o ERR9516189_HiSeq_X_Ten_paired_end_sequencing_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/009/ERR9516189/ERR9516189_2.fastq.gz -o ERR9516189_HiSeq_X_Ten_paired_end_sequencing_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR751/004/SRR7514404/SRR7514404_1.fastq.gz -o SRR7514404_Other_Sequencing_of_Salmonella_enterica_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR751/004/SRR7514404/SRR7514404_2.fastq.gz -o SRR7514404_Other_Sequencing_of_Salmonella_enterica_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/001/ERR9516191/ERR9516191_1.fastq.gz -o ERR9516191_HiSeq_X_Ten_paired_end_sequencing_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR951/001/ERR9516191/ERR9516191_2.fastq.gz -o ERR9516191_HiSeq_X_Ten_paired_end_sequencing_2.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR363/004/ERR3635344/ERR3635344_1.fastq.gz -o ERR3635344_Illumina_NovaSeq_6000_paired_end_sequencing_10k_Salmonella_Project_1.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR363/004/ERR3635344/ERR3635344_2.fastq.gz -o ERR3635344_Illumina_NovaSeq_6000_paired_end_sequencing_10k_Salmonella_Project_2.fastq.gz
+
