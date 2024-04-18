@@ -1,1 +1,8 @@
-
+1. download raw reads
+2. quality control to rawreads using fastqc
+3. trimming using fastp
+4. quality control to trimmed reads
+5. genome assembly using spdes 
+6. insilico serotyping using seqsero2
+7. plasmidtyping using abricate plasmidfinder
+8. AMR gene detection using amrfinderplus
