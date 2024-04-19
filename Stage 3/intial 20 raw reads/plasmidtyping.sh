@@ -5,6 +5,6 @@ samples=("ERR9516208" "ERR9516260" "ERR9516213" "ERR9516215" "ERR9516190" "ERR95
 
 # Loop over each sample
 for sample in "${samples[@]}"; do
-    # Run SeqSero2 using the output of a SPAdes assembly
+    # Run abricate using plasmidfinder database
     abricate --db plasmidfinder "spadesdata/${sample}_spades/contigs.fasta" --csv > plasmidtyping/${sample}.csv
 done
