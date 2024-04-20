@@ -150,7 +150,7 @@ for assembly in results/read_assembly/*; do
     # Check if contigs.fasta exists in the folder
     if [ -f "$assembly/contigs.fasta" ]; then
         # Run amrfinder
-        if amrfinder -n "$assembly/contigs.fasta" -O Salmonella -o "results/amr_detection/${sample}_amrfinder.csv"; then
+        if amrfinder -n "$assembly/contigs.fasta" -O Salmonella --name ${sample} -o "results/amr_detection/${sample}_amrfinder.csv"; then
             echo "Finished AMR prediction using AMRFinder for sample: ${sample}"
         else
             echo "AMR prediction using AMRFinder failed for sample: ${sample}"
