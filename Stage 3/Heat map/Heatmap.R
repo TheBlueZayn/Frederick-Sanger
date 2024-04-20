@@ -1,18 +1,28 @@
+#load the required packages, if they are kot installed (install.packages("package.name")
 library(dplyr)
 library(tidyverse)
 library(reshape2)
 library(ComplexHeatmap)
 library(circlize)
 getwd()
+##AMR data generation for heatmap
+#set the working directory to where the AMR files located (the output of task1), make a folder called AMR that contains all the csv files of the samples
 setwd("E:/hackio_genomics_workshop/stage3/AMR")
+
+#Read the csv files (50 files), each file will be read separately 
 AMR_files <- list.files("E:/hackio_genomics_workshop/stage3/AMR")
 AMR_sep.files <- lapply(AMR_files, read.csv)
+#combine all the csv files into one file
 AMR_all = bind_rows(AMR_sep.files)
 
+#select the columns that will be used to generate the AMR data for plotting 
 AMR_trim = AMR_all %>% select(Name,X..Identity.to.reference.sequence,Gene.symbol)
 
+#generate a matrix where the colnames --> Sample name , rownames --> genes, and the values of each sample to its gene will be added
 matrixAMR=acast(AMR_trim,Name~Gene.symbol, value.var ="X..Identity.to.reference.sequence", fun.aggregate = NULL)
+#convert the matrix to dataframe 
 AMRdf=as.data.frame(matrixAMR)
+#identify the names of the columns 
 colnames(AMRdf)
 AMRdf_trim=AMRdf[, c("catA1", "catA2", "cmlA5", "floR", "sul1", "sul2", "dfrA19", "dfrA23","blaOXA-10", "blaSCO-1","blaTEM-1","blaCTX-M-15","blaSHV-12","ere(A)","mph(A)","qnrA1","qnrB2")]
 
