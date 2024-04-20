@@ -161,7 +161,7 @@ for assembly in results/read_assembly/*; do
     fi
 done
 
-# serotyping using seqsero
+# Serotyping using SeqSero2
 # Define an array of sample paths
 samples=(results/read_assembly/*_assembly/contigs.fasta)
 
