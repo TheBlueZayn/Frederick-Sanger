@@ -1,0 +1,5 @@
+#FILE,SEQUENCE,START,END,STRAND,GENE,COVERAGE,COVERAGE_MAP,GAPS,%COVERAGE,%IDENTITY,DATABASE,ACCESSION,PRODUCT,RESISTANCE
+results/read_assembly/ERR9516211_assembly/scaffolds.fasta,NODE_16_length_85909_cov_4.407144,69315,69456,-,IncI1_1_Alpha,1-142/142,===============,0/0,100.00,100.00,plasmidfinder,AP005147,IncI1_1_Alpha_AP005147,
+results/read_assembly/ERR9516211_assembly/scaffolds.fasta,NODE_30_length_5427_cov_239.652897,1295,1496,+,Col8282_1,4-205/207,===============,0/0,97.58,89.60,plasmidfinder,DQ995352,Col8282_1__DQ995352,
+results/read_assembly/ERR9516211_assembly/scaffolds.fasta,NODE_35_length_2166_cov_837.019148,888,1120,+,Col(BS512)_1,1-233/233,===============,0/0,100.00,100.00,plasmidfinder,NC_010656,Col(BS512)_1__NC_010656,
+results/read_assembly/ERR9516211_assembly/scaffolds.fasta,NODE_59_length_929_cov_0.941315,31,795,+,IncY_1,1-765/765,===============,0/0,100.00,99.87,plasmidfinder,K02380,IncY_1__K02380,
