@@ -18,3 +18,9 @@ Project 1 : Navigating through basic bash
 [sript](https://github.com/TheBlueZayn/Frederick-Sanger/tree/main/Stage%201/script) contains the codes used by each member 
 
 Project 2 : Installing Bioinformatics Softwares on the terminal
+
+### Stage Two
+Creating a simple NGS pipeline that spits out the mutations in a dataset
+
+### Stage Three
+Global Salmonella concord genomic analysis using 50 random isolates
