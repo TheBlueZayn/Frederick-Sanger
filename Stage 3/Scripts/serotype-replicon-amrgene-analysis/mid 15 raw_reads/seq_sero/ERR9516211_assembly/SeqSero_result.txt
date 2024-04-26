@@ -1,9 +1,0 @@
-Output directory:	/home/ayomiposi/s.concord_project/seq_sero/ERR9516211_assembly
-Input files:	ERR9516211_assembly_contig.fasta
-O antigen prediction:	7
-H1 antigen prediction(fliC):	l,v
-H2 antigen prediction(fljB):	1,2
-Predicted identification:	Salmonella enterica subspecies enterica (subspecies I)
-Predicted antigenic profile:	7:l,v:1,2
-Predicted serotype:	Concord
-Note:	
