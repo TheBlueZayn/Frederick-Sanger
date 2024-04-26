@@ -1,0 +1,2 @@
+Sample name	Output directory	Input files	O antigen prediction	H1 antigen prediction(fliC)	H2 antigen prediction(fljB)	Predicted identification	Predicted antigenic profile	Predicted serotype	Note
+ERR9516228	/home/mariamkhaled/trim.reads/genome.assembly/SeqSero_result_04_18_2024_01_19_453307727	contigs.fasta	7	l,v	1,2	Salmonella enterica subspecies enterica (subspecies I)	7:l,v:1,2	Concord	
