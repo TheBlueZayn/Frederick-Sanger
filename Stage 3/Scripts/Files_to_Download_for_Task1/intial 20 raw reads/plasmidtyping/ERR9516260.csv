@@ -1,7 +1,0 @@
-#FILE,SEQUENCE,START,END,STRAND,GENE,COVERAGE,COVERAGE_MAP,GAPS,%COVERAGE,%IDENTITY,DATABASE,ACCESSION,PRODUCT,RESISTANCE
-spadesdata/ERR9516260_spades/contigs.fasta,NODE_20_length_106646_cov_17.698665,65455,66328,+,IncFIB(pHCM2)_1_pHCM2,1-874/875,===============,0/0,99.89,83.87,plasmidfinder,AL513384,IncFIB(pHCM2)_1_pHCM2_AL513384,
-spadesdata/ERR9516260_spades/contigs.fasta,NODE_31_length_51931_cov_21.688375,21760,22389,-,IncHI2A_1,1-630/630,===============,0/0,100.00,100.00,plasmidfinder,BX664015,IncHI2A_1__BX664015,
-spadesdata/ERR9516260_spades/contigs.fasta,NODE_31_length_51931_cov_21.688375,36043,36637,+,RepA_1_pKPC-CAV1321,2-596/596,========/======,2/2,99.66,80.37,plasmidfinder,CP011611,RepA_1_pKPC-CAV1321_CP011611,
-spadesdata/ERR9516260_spades/contigs.fasta,NODE_31_length_51931_cov_21.688375,37255,37581,+,IncHI2_1,1-327/327,===============,0/0,100.00,100.00,plasmidfinder,BX664015,IncHI2_1__BX664015,
-spadesdata/ERR9516260_spades/contigs.fasta,NODE_37_length_37194_cov_674.487486,24410,25174,+,IncY_1,1-765/765,===============,0/0,100.00,99.87,plasmidfinder,K02380,IncY_1__K02380,
-spadesdata/ERR9516260_spades/contigs.fasta,NODE_51_length_5427_cov_397.843551,4172,4373,+,Col8282_1,4-205/207,===============,0/0,97.58,89.60,plasmidfinder,DQ995352,Col8282_1__DQ995352,
