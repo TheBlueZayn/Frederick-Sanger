@@ -75,7 +75,7 @@ tip_lable <- c("ERR9516298",
 
 
 
-##AMR matix generation
+##AMR matrix generation
 #set the working directory to where the csv files of the AMR genes each sample is located
 getwd()
 setwd("E:/hackio_genomics_workshop/stage3/AMR")
