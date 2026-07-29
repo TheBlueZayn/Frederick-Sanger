@@ -24,3 +24,6 @@ Creating a simple NGS pipeline that spits out the mutations in a dataset
 
 ### Stage Three
 Global Salmonella concord genomic analysis using 50 random isolates
+ [scripts] (https://github.com/TheBlueZayn/Frederick-Sanger/tree/main/Stage%203/Scripts) contains the codes used in the analyis
+[Analytical Workflow] (https://github.com/TheBlueZayn/Frederick-Sanger/blob/main/Stage%203/Workflow.jpg)
+[Phylogenetic tree of S.concord] (https://github.com/TheBlueZayn/Frederick-Sanger/blob/main/Stage%203/finalfigure%20stage3.pdf) 
