@@ -1,8 +1,8 @@
 ## Team Frederick Sanger for the Hackbio Virtual Genomics Internship, 2024
 
 ### Team Members
-- Zaynab
-- FAIZAN
+- Zaynab 
+- Faizan
 - Mariam
 - Richie
 - Sopuruchi
